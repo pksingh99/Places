@@ -1,0 +1,79 @@
+<form action="http://localhost/payu/PayUMoney_form.php" id="payform" method="POST">
+
+  <input type="hidden" name="key" value="rjQUPktU" />
+  <input type="hidden" name="txnid" value="" />
+  <input type="hidden" name="hash" value="" />
+  <input type="hidden" name="amount" [value]="payableamount" />
+  <input type="hidden" name="part" [value]="part" />
+  <input type="hidden" name="email" [value]="email" />
+  <input type="hidden" name="user" [value]="user" />
+  <input type="hidden" name="phone" [value]="phone" />
+  <input type="hidden" name="firstname" [value]="user" />
+  <input type='hidden' name='productinfo' [value]='"{\"productinfo\":\""+productinfo+"\",\"part\":\""+part+"\",\"amount\":\""+amount+"\",\"usersecret\":\""+usersecret+"\"}"' />
+  <input type="hidden" name="surl" [value]="surl" />
+  <input type="hidden" name="furl" [value]="furl" />
+  <input type="hidden" name="service_provider" value="payu_paisa" size="64" />
+
+
+</form>
+
+<table class="table" *ngIf="show==0">
+  <tr>
+    <th>Sr</th>
+    <th>Currency</th>
+    <th>Seller</th>
+    <th>Part</th>
+    <th>Amount</th>
+    <th>Buy</th>
+  </tr>
+  <tr>
+    <th>1</th>
+    <th>Bitcoin</th>
+    <th>Merchant</th>
+    <th>{{part}}</th>
+    <th>
+      <mat-form-field class="example-full-width">
+        <input matInput [(ngModel)]="amount" min="1000" value="1000" (change)="calculatePart()">
+      </mat-form-field>
+    </th>
+    <th><button (click)="show=1;payableamountcal();">
+Buy
+</button></th>
+  </tr>
+</table>
+<div *ngIf="show==1">
+  <table>
+    <tr>
+      <td>
+        Bitcoin:
+      </td>
+      <td>
+        {{part}}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Payable Amount:
+      </td>
+      <td>
+        {{payableamount}}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button (click)="show=0">
+Back    </button></td>
+      <td>
+        <button>
+  <a onclick="document.getElementById('payform').submit()">Procced</a>
+</button>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+
+<!--
+<app-verify-buy *ngIf="show==1"  [amount]="amount" [part]="part" [email]="email" [user]="user" [phone]="phone"></app-verify-buy>
+-->
